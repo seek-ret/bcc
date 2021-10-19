@@ -1031,7 +1031,7 @@ static int create_probe_event(char *buf, const char *ev_name,
     return -1;
   }
 
-  res = snprintf(ev_alias, sizeof(ev_alias), "%s_bcc_%d", ev_name, getpid());
+  res = snprintf(ev_alias, sizeof(ev_alias), "%s_seekret_%d", ev_name, getpid());
   if (res < 0 || res >= sizeof(ev_alias)) {
     fprintf(stderr, "Event name (%s) is too long for buffer\n", ev_name);
     close(kfd);
@@ -1189,7 +1189,7 @@ static int bpf_detach_probe(const char *ev_name, const char *event_type)
     goto error;
   }
 
-  res = snprintf(buf, sizeof(buf), "%ss/%s_bcc_%d", event_type, ev_name, getpid());
+  res = snprintf(buf, sizeof(buf), "%ss/%s_seekret_%d", event_type, ev_name, getpid());
   if (res < 0 || res >= sizeof(buf)) {
     fprintf(stderr, "snprintf(%s): %d\n", ev_name, res);
     goto error;
@@ -1214,7 +1214,7 @@ static int bpf_detach_probe(const char *ev_name, const char *event_type)
     goto error;
   }
 
-  res = snprintf(buf, sizeof(buf), "-:%ss/%s_bcc_%d", event_type, ev_name, getpid());
+  res = snprintf(buf, sizeof(buf), "-:%ss/%s_seekret_%d", event_type, ev_name, getpid());
   if (res < 0 || res >= sizeof(buf)) {
     fprintf(stderr, "snprintf(%s): %d\n", ev_name, res);
     goto error;
